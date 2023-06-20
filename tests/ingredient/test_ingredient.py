@@ -6,16 +6,22 @@ from src.models.ingredient import (
 
 # Req 1
 def test_ingredient():
-    ingrediente_1 = Ingredient("queijo mussarela")
-    ingrediente_2 = Ingredient("tomate")
-    ingrediente_3 = Ingredient("tomate")
+    ingredient = Ingredient("Frango")
+    assert ingredient.name == "Frango"
+    assert ingredient.restrictions == set()
 
-    assert ingrediente_1.name == "queijo mussarela"
+    assert repr(ingredient) == "Ingredient('Frango')"
 
-    assert hash(ingrediente_2) == hash(ingrediente_3)
+    ingredient1 = Ingredient("Frango")
+    ingredient2 = Ingredient("Frango")
+    assert ingredient1 == ingredient2
 
-    assert ingrediente_3 == ingrediente_2
-    assert (ingrediente_2 == ingrediente_1) == False
+    assert hash(ingredient1) == hash(ingredient2)
 
+    ingredient3 = Ingredient("cebola")
+    assert ingredient1 != ingredient3
+    assert hash(ingredient1) != hash(ingredient3)
+
+    ingredient = Ingredient("queijo mussarela")
     expected_restrictions = {Restriction.LACTOSE, Restriction.ANIMAL_DERIVED}
-    assert ingrediente_1.restrictions == expected_restrictions
+    assert ingredient.restrictions == expected_restrictions
